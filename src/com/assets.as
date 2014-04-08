@@ -22,6 +22,22 @@ package com
 		[Embed(source="../../assets/player.png")]
 		static private var player:Class;
 		
+		[Embed(source="../../assets/particle.png")]
+		static private var particle:Class;
+		
+		[Embed(source="../../assets/particle.pex",  mimeType="application/octet-stream")]
+		static private var particleConfig:Class;
+		
+		//overworld background assets
+		[Embed(source="../../assets/background.png")]
+		static private var background:Class;
+		
+		[Embed(source="../../assets/midground.png")]
+		static private var midground:Class;
+		
+		[Embed(source="../../assets/foreground.png")]
+		static private var foreground:Class;
+		
 		//player atlas
 		/*[Embed(source="../../assets/playerAtlas.png")]
 		public static const playerAtlas:Class;
@@ -30,8 +46,9 @@ package com
 		
 		private static var textures:Dictionary = new Dictionary();
 		private static var atlases:Dictionary = new Dictionary();
+		private static var configs:Dictionary = new Dictionary();
 		
-		public static function getSS( name:String ):TextureAtlas {
+		static public function getSS( name:String ):TextureAtlas {
 			if ( !atlases[ name ] ) {
 				var xml:XML 			= XML( new assets[ name+"XML" ]() );
 				var texture:Texture 	= getTexture( name+"Atlas" );
@@ -41,12 +58,20 @@ package com
 			return atlases[ name ];
 		}
 		
-		public static function getTexture( name:String ):Texture {
+		static public function getTexture( name:String ):Texture {
 			if ( !textures[ name ] ) {
 				var bitmap:Bitmap 	= new assets[ name ]();
 				textures[ name ] 	= Texture.fromBitmap( bitmap, false, true );
 			}
 			return textures[ name ];
+		}
+		
+		static public function getConfig( name:String ):XML {
+			if ( !configs[ name ] ) {
+				var config:XML = XML( new assets[ name + "Config" ] );
+				configs[ name ] = config;
+			}
+			return configs[ name ];
 		}
 	}
 }

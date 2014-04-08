@@ -9,7 +9,7 @@ package
 	
 	import starling.core.Starling;
 	
-	[SWF(backgroundColor=0, width=1024, height=768, frameRate=60)]
+	[SWF(backgroundColor=0, width=960, height=640, frameRate=60)]
 	public class Retention extends Sprite
 	{
 		private var m_starling:Starling;
@@ -25,6 +25,9 @@ package
 			m_starling = new Starling( g_main, stage );
 			m_starling.antiAliasing = 1;
 			m_starling.start();
+			
+			//temporary debugging only
+			m_starling.showStats = true;
 		}
 	}
 }
