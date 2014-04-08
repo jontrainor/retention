@@ -27,7 +27,7 @@ package game
 			super.SetDefaults();
 			AbsoluteCenter();
 			
-			g_dispatcher.instance.AddToDispatchTouch( TouchPhase.BEGAN, OnTouch );
+			g_dispatcher.instance.AddToDispatch( OnTouch, null, "touch", TouchPhase.BEGAN );
 		}
 		
 		private function OnTouch( touch:Touch ):void {

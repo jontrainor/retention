@@ -15,24 +15,30 @@ package game
 		
 		public function g_dispatcher( pvt:privateclass ) { m_dispatchFrameList = new Vector.<Object>; m_dispatchTouchList = new Vector.<Object>; }
 		
-		/** Add a function to be dispatched on the next dispatch call */
-		public function AddToDispatchFrame( f:Function, args:Object=null ):void {
+		/** Add a function to be dispatched on the next dispatch call 
+		 * @param dispatchEventType - pass "frame" for ENTER_FRAME event, "touch" for a touch event 
+		 * @param touchPhase - if you are passing dispatchEventType value "touch", then pass the phase you want it to triger with
+		 */
+		public function AddToDispatch( f:Function, args:Object=null, dispatchEventType:String="frame", touchPhase:String=null ):void {
+			dispatchEventType.toLowerCase();
+			var listName:String = dispatchEventType.charAt(0);
+			listName = listName.toUpperCase()+dispatchEventType.slice(1);
+			
+			var list:Vector.<Object> = this[ "m_dispatch"+listName+"List" ];
 			if ( m_dispatchFrameList.indexOf( f ) == -1 ) {
-				m_dispatchFrameList.push( { func:f, args:args } );
-			}
-		}
-		
-		/** Add a function to be dispatched on the next dispatch call */
-		public function AddToDispatchTouch( touchPhase:String, f:Function, args:Object=null ):void {
-			if ( m_dispatchTouchList.indexOf( f ) == -1 ) {
-				m_dispatchTouchList.push( { func:f, args:args } );
+				if ( touchPhase && dispatchEventType == "touch" ) {
+					m_dispatchFrameList.push( { func:f, args:args, phase:touchPhase } );
+				} 
+				else {
+					m_dispatchFrameList.push( { func:f, args:args } );
+				}
 			}
 		}
 		
 		/** Remove a function from the dispatch list */
 		public function RemoveFromDispatch( f:Function, type:String="Frame" ):void {
 			var i:int;
-			var list:Vector.<Object> = this[ "dispatch"+type+"List" ];
+			var list:Vector.<Object> = this[ "m_dispatch"+type+"List" ];
 			for ( ; i < list.length; ++i ) {
 				if ( list[ i ].func == f ) {
 					list.splice( i , 1 );
@@ -52,8 +58,12 @@ package game
 		/** Dispatch all functions in the dispatch list with the touch object arguement */
 		public function DispatchTouch( touch:Touch ):void {
 			var i:int;
+			var obj:Object;
 			for ( ; i < m_dispatchTouchList.length; ++i ) {
-				m_dispatchTouchList[ i ].func( touch );
+				obj = m_dispatchTouchList[ i ];
+				if ( obj.phase == touch.phase ) {
+					m_dispatchTouchList[ i ].func( touch );
+				}
 			}
 		}
 		

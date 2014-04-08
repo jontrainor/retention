@@ -47,7 +47,7 @@ package renderer
 			m_midgroundLayer.Draw();
 			m_foregroundLayer.Draw();
 			
-			g_dispatcher.instance.AddToDispatchTouch( TouchPhase.BEGAN, OnTouch );
+			g_dispatcher.instance.AddToDispatch( OnTouch, null, "touch", TouchPhase.BEGAN );
 		}
 		
 		protected function OnTouch( touch:Touch ):void {
