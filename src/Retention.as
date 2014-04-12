@@ -21,6 +21,10 @@ package
 			Init();
 		}
 		
+		private function testCallback( xml:XML ):void {
+			trace( "loading complete" );
+		}
+		
 		private function Init():void {
 			m_starling = new Starling( g_main, stage );
 			m_starling.antiAliasing = 1;

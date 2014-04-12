@@ -30,6 +30,8 @@ package com
 		static public const RESET			:String = "reset";
 		static public const GAME_OVER		:String = "over";
 		static public const GAME_OVERWORLD	:String = "overworld";
+		static public const READY			:String = "ready";
+		static public const LOADING			:String = "loading";
 		
 		public function globals():void {
 			if ( m_instance ) { echo( "!!Warning!! --> There can only be one globals instance. It's created from Retention." ); return; }
