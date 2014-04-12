@@ -14,7 +14,7 @@ package game
 	public class g_main extends Sprite
 	{
 		private var m_overworld		:r_thebody
-		private var m_player		:g_drawable;
+		private var m_player		:g_entity;
 		private var m_appState		:String;
 		
 		//used to update elapsed time between frames

@@ -2,9 +2,9 @@ package game
 {
 	import starling.display.DisplayObjectContainer;
 	
-	public class g_drawable extends a_entity
+	public class g_entity extends a_entity
 	{
-		public function g_drawable(
+		public function g_entity(
 			parent				:DisplayObjectContainer,
 			asset				:String, 
 			isSpriteSheet		:Boolean = false, 

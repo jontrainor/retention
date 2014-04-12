@@ -14,7 +14,7 @@ package game
 	import starling.display.Sprite;
 	
 	/*========================================================================================
-	Abstract Super
+	Entity Abstract Super
 	========================================================================================*/
 	public class a_entity extends Sprite implements i_drawable
 	{

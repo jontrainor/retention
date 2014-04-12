@@ -1,6 +1,6 @@
 package com
 {
-	import game.g_drawable;
+	import game.g_entity;
 	
 	import starling.display.Sprite;
 	import starling.display.Stage;
@@ -23,7 +23,7 @@ package com
 		static public var midground			:Sprite;
 		static public var foreground		:Sprite;
 		static public var overlay			:Sprite;
-		static public var player			:g_drawable;
+		static public var player			:g_entity;
 		
 		/*===============
 		CONSTANTS

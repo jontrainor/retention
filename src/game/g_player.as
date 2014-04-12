@@ -8,7 +8,7 @@ package game
 	import starling.events.Touch;
 	import starling.events.TouchPhase;
 	
-	public class g_player extends g_drawable
+	public class g_player extends g_entity
 	{	
 		public function g_player(
 			parent				:DisplayObjectContainer, 
