@@ -15,7 +15,7 @@ package renderer
 	import starling.extensions.PDParticleSystem;
 	import starling.extensions.ParticleSystem;
 	
-	public class r_overworld extends Sprite
+	public class r_thebody extends Sprite
 	{
 		/** layers are used for parallax, and the name is deceiving as they are all added to background */
 		private var m_backgroundLayer	:r_layer;
@@ -25,7 +25,7 @@ package renderer
 		/** particle system is the bubble effect created at player's location */
 		private var m_particleSystem	:ParticleSystem;
 		
-		public function r_overworld() {
+		public function r_thebody() {
 			m_backgroundLayer = new r_layer( assets.getTexture( "background" ), 0.5, globals.background );
 			m_midgroundLayer = new r_layer( assets.getTexture( "midground" ), 0.75, globals.background );
 			m_foregroundLayer = new r_layer( assets.getTexture( "foreground" ), 1, globals.background );

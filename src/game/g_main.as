@@ -2,7 +2,7 @@ package game
 {
 	import com.globals;
 	
-	import renderer.r_overworld;
+	import renderer.r_thebody;
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -12,7 +12,7 @@ package game
 	
 	public class g_main extends Sprite
 	{
-		private var m_overworld:r_overworld
+		private var m_overworld:r_thebody
 		private var m_player:g_drawable;
 		private var m_appState:String;
 		
@@ -52,7 +52,7 @@ package game
 		
 		public function Start():void {
 			//remove menu, add player, overworld etc
-			m_overworld = new r_overworld();
+			m_overworld = new r_thebody();
 			globals.background.addChild( m_overworld );
 			
 			m_player = new g_player( globals.midground, "player" );
