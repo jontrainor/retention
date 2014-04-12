@@ -36,6 +36,7 @@ package game
 			Init();
 		}
 		
+		/** Menu section */
 		private function Init():void {
 			m_appState = globals.MENU;
 			globals.CreateLayers( stage );
@@ -62,13 +63,13 @@ package game
 		
 		public function Start():void {
 			//remove menu, add player, overworld etc
+			globals.FadeIn();
 			m_overworld = new r_thebody();
 			globals.background.addChild( m_overworld );
 			
 			m_player = new g_bodyPlayer( globals.midground, "player" );
 			m_player.Draw();
 		}
-		
 		
 		private function AddTouch():void { stage.addEventListener( TouchEvent.TOUCH, OnTouch ); }
 		private function RemoveTouch():void { stage.removeEventListener( TouchEvent.TOUCH, OnTouch ); }

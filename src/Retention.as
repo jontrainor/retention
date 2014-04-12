@@ -1,11 +1,9 @@
 package
 {
 	import com.globals;
+	import game.g_main;
 	
 	import flash.display.Sprite;
-	import flash.display.StageAlign;
-	
-	import game.g_main;
 	
 	import starling.core.Starling;
 	
@@ -19,10 +17,6 @@ package
 			//set stage align and stage scaling
 			m_globals = new globals();
 			Init();
-		}
-		
-		private function testCallback( xml:XML ):void {
-			trace( "loading complete" );
 		}
 		
 		private function Init():void {
