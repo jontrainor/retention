@@ -2,7 +2,7 @@ package game
 {
 	import starling.display.DisplayObjectContainer;
 	
-	public class g_drawable extends ga_drawable
+	public class g_drawable extends a_drawable
 	{
 		public function g_drawable(
 			parent				:DisplayObjectContainer,

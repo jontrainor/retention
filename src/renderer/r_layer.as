@@ -12,17 +12,21 @@ package renderer
 	{
 		private var m_texture:Texture;
 		
-		static public var sm_speed:Number;
+		public var parallaxSpeed:Number;
 		
 		/** Quadbatch can be massive as long as it contains one image */
 		private var m_quadBatch:QuadBatch;
 		
 		public function r_layer( texture:Texture, parallaxSpeed:Number, parent:DisplayObjectContainer ) {
-			m_quadBatch = new QuadBatch();
-			m_quadBatch.addImage( new Image( texture ) );
-			m_texture = texture;
+			m_quadBatch 		= new QuadBatch();
+			m_texture 			= texture;
 			m_quadBatch.visible = false;
-			parent.addChild( m_quadBatch );
+			this.parallaxSpeed 	= parallaxSpeed;
+			
+			m_quadBatch.addImage( new Image( texture ) );
+			
+			addChild( m_quadBatch );
+			parent.addChild( this );
 		}
 		
 		/** Remove and dispose QuadBatch and Texture */
@@ -38,11 +42,12 @@ package renderer
 			m_quadBatch.visible = true;
 		}
 		
-		/** All layers move in accordance to the player velocity */
-		public function Move( velocity:Point ):void {
-			//sm_speed = ;
-			m_quadBatch.x += velocity.x;
-			m_quadBatch.y += velocity.y;
+		override public function set x(value:Number):void {
+			super.x = value * parallaxSpeed;
+		}
+		
+		override public function set y(value:Number):void {
+			super.y = value * parallaxSpeed;
 		}
 	}
 }

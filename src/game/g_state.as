@@ -41,6 +41,11 @@ package game
 			}
 		}
 		
+		/** Dispatch all the frame event functions */
+		public function updateHandler():void {
+			g_dispatcher.instance.DispatchFrame();
+		}
+		
 		private function SetState( state:String ):void {
 			m_state = state;
 			globals.echo( "state set to: " + m_state );

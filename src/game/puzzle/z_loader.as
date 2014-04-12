@@ -19,7 +19,7 @@ package game.puzzle
 		private var m_loadedLevels		:Dictionary;
 		
 		/** singleton */
-		private static var m_instance	:z_loader;
+		static private var sm_instance	:z_loader;
 		
 		public function z_loader( pvt:privateclass ) {
 			m_loadedLevels 	= new Dictionary();
@@ -89,7 +89,7 @@ package game.puzzle
 		public function set levelPath( path:String ):void { m_levelPath = path; }
 		public function get levelPath():String { return m_levelPath; }
 		
-		public static function get instance():z_loader { return m_instance ? m_instance : m_instance = new z_loader( new privateclass() ); }
+		public static function get instance():z_loader { return sm_instance ? sm_instance : sm_instance = new z_loader( new privateclass() ); }
 	}
 }
 

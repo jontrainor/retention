@@ -35,6 +35,7 @@ package game
 			m_appState = globals.MENU;
 			globals.CreateLayers( stage );
 			AddTouch();
+			AddUpdate();
 			//add menu, etc
 		}
 		
@@ -47,8 +48,9 @@ package game
 			}
 		}
 		
-		private function AddTouch():void { stage.addEventListener( TouchEvent.TOUCH, OnTouch ); }
-		private function RemoveTouch():void { stage.removeEventListener( TouchEvent.TOUCH, OnTouch ); }
+		private function Update( e:Event ):void {
+			g_state.instance.updateHandler();
+		}
 		
 		public function Start():void {
 			//remove menu, add player, overworld etc
@@ -56,7 +58,14 @@ package game
 			globals.background.addChild( m_overworld );
 			
 			m_player = new g_player( globals.midground, "player" );
+			globals.player = m_player;
 			m_player.Draw();
 		}
+		
+		private function AddTouch():void { stage.addEventListener( TouchEvent.TOUCH, OnTouch ); }
+		private function RemoveTouch():void { stage.removeEventListener( TouchEvent.TOUCH, OnTouch ); }
+		
+		private function AddUpdate():void { addEventListener( Event.ENTER_FRAME, Update ); }
+		private function RemoveUpdate():void { removeEventListener( Event.ENTER_FRAME, Update ); }
 	}
 }

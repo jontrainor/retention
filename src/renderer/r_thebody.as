@@ -21,38 +21,46 @@ package renderer
 		private var m_backgroundLayer	:r_layer;
 		private var m_midgroundLayer	:r_layer;
 		private var m_foregroundLayer	:r_layer;
+		private var m_camera			:r_camera;
 		
 		/** particle system is the bubble effect created at player's location */
 		private var m_particleSystem	:ParticleSystem;
 		
 		public function r_thebody() {
-			m_backgroundLayer = new r_layer( assets.getTexture( "background" ), 0.5, globals.background );
-			m_midgroundLayer = new r_layer( assets.getTexture( "midground" ), 0.75, globals.background );
-			m_foregroundLayer = new r_layer( assets.getTexture( "foreground" ), 1, globals.background );
+			m_camera			= new r_camera(this);
+			
 			addEventListener( Event.ADDED_TO_STAGE, onAdded );
 		}
 		
 		protected function onAdded( e:Event ):void {
 			removeEventListener( Event.ADDED_TO_STAGE, onAdded );
+			
+			m_backgroundLayer 	= new r_layer( assets.getTexture( "background" ), 0.5, stage );
+			m_midgroundLayer 	= new r_layer( assets.getTexture( "midground" ), 0.75, stage );
+			m_foregroundLayer 	= new r_layer( assets.getTexture( "foreground" ), 1, stage );
+			
 			drawBackground();
 		}
 		
 		protected function drawBackground():void {
 			//addParticles();
-			globals.background.addChild( m_backgroundLayer );
-			globals.midground.addChild( m_midgroundLayer );
-			globals.foreground.addChild( m_foregroundLayer );
 			
 			m_backgroundLayer.Draw();
 			m_midgroundLayer.Draw();
 			m_foregroundLayer.Draw();
 			
 			g_dispatcher.instance.AddToDispatch( OnTouch, null, "touch", TouchPhase.BEGAN );
+			g_dispatcher.instance.AddToDispatch( Update );
 		}
 		
 		protected function OnTouch( touch:Touch ):void {
 			var angle:Number = Math.atan2( touch.globalY - globals.stageHalfHeight, touch.globalX - globals.stageHalfWidth );
 			var velocity:Point = new Point( Math.cos( angle ), Math.sin( angle ) );
+		}
+		
+		protected function Update():void {
+			m_camera.x = globals.player.x;
+			m_camera.y = globals.player.y;
 		}
 		
 		/** Bubble effect, update emitterX and emitterY to player position.
@@ -67,6 +75,20 @@ package renderer
 			
 			addChild( m_particleSystem );
 			Starling.juggler.add( m_particleSystem );
+		}
+		
+		/** Set the world x coordinate*/
+		override public function set x(value:Number):void {
+			m_backgroundLayer..x 	= value;
+			m_midgroundLayer.x 		= value;
+			m_foregroundLayer.x 	= value;
+		}
+		
+		/** Set the world y coordinate*/
+		override public function set y(value:Number):void {
+			m_backgroundLayer.y 	= value;
+			m_midgroundLayer.y 		= value;
+			m_foregroundLayer.y 	= value;
 		}
 	}
 }

@@ -21,13 +21,13 @@ package game
 		 */
 		public function AddToDispatch( f:Function, args:Object=null, dispatchEventType:String="frame", touchPhase:String=null ):void {
 			dispatchEventType.toLowerCase();
-			var listName:String = dispatchEventType.charAt(0);
+			var listName:String = dispatchEventType.charAt( 0 );
 			listName = listName.toUpperCase()+dispatchEventType.slice(1);
 			
 			var list:Vector.<Object> = this[ "m_dispatch"+listName+"List" ];
 			if ( m_dispatchFrameList.indexOf( f ) == -1 ) {
 				if ( touchPhase && dispatchEventType == "touch" ) {
-					m_dispatchFrameList.push( { func:f, args:args, phase:touchPhase } );
+					m_dispatchTouchList.push( { func:f, args:args, phase:touchPhase } );
 				} 
 				else {
 					m_dispatchFrameList.push( { func:f, args:args } );
@@ -51,7 +51,7 @@ package game
 		public function DispatchFrame():void {
 			var i:int;
 			for ( ; i < m_dispatchFrameList.length; ++i ) {
-				m_dispatchFrameList[ i ].func( m_dispatchFrameList[ i ].args );
+				m_dispatchFrameList[ i ].func.apply(this, m_dispatchFrameList[ i ].args );
 			}
 		}
 		

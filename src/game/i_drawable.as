@@ -1,6 +1,6 @@
 package game
 {
-	public interface gi_drawable {
+	public interface i_drawable {
 		/** Update to call on frame */
 		function Update( elapsedTime:Number ):void;
 		

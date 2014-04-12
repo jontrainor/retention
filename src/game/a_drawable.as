@@ -16,7 +16,7 @@ package game
 	/*========================================================================================
 	Abstract Super
 	========================================================================================*/
-	public class ga_drawable extends Sprite implements gi_drawable
+	public class a_drawable extends Sprite implements i_drawable
 	{
 		protected var m_asset:Image;
 		protected var m_assetHalfWidth:Number;
@@ -26,7 +26,7 @@ package game
 		protected var m_velocity:Point;
 		
 		/** All drawables should have a parent and asset to load, if it's a sprite sheet set how many frames for the animations */
-		public function ga_drawable(
+		public function a_drawable(
 			parent				:DisplayObjectContainer, 					
 			asset				:String, 							
 			isSpriteSheet		:Boolean = false, 					

@@ -31,7 +31,7 @@ package game
 		}
 		
 		private function OnTouch( touch:Touch ):void {
-			//moveTo( new Point( touch.globalX, touch.globalY ) );
+			moveTo( new Point( touch.globalX, touch.globalY ) );
 		}
 		
 		override public function Update( elapsedTime:Number ):void {
