@@ -42,7 +42,6 @@ package game
 			for ( ; i < list.length; ++i ) {
 				if ( list[ i ].func == f ) {
 					list.splice( i , 1 );
-					break;
 				}
 			}
 		}

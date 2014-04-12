@@ -1,9 +1,5 @@
 package game
 {
-	import com.globals;
-	
-	import flash.geom.Point;
-	
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Touch;
 	import starling.events.TouchPhase;
@@ -22,20 +18,12 @@ package game
 		
 		override protected function SetDefaults():void {
 			super.SetDefaults();
-			AbsoluteCenter();
-			
-			g_dispatcher.instance.AddToDispatch( OnTouch, null, "touch", TouchPhase.BEGAN );
 			g_dispatcher.instance.AddToDispatch( Update );
 		}
 		
-		private function OnTouch( touch:Touch ):void {
-			//MoveTo( new Point( touch.globalX, touch.globalY ) );
-			var gtl:Point = m_parent.globalToLocal( new Point( touch.globalX, touch.globalY ) );
-			Impulse( Math.atan2( gtl.y - y, gtl.x - x ), 200, true, 1.57 );
-		}
-		
-		override public function Update():void {
-			Move();
-		}
+		/** Touch event, applied with relative touch phases
+		 * e.g. - g_dispatcher.instance.AddToDispatch( OnTouch, null, "touch", TouchPhase.BEGAN ); 
+		 * */
+		protected function OnTouch( touch:Touch ):void {}
 	}
 }
