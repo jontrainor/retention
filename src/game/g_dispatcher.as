@@ -2,6 +2,9 @@ package game
 {
 	import starling.events.Touch;
 
+	/*========================================================================================
+	g_dispatcher calls functions applied to a single touch event or enter_frame listener in g_main
+	========================================================================================*/
 	public class g_dispatcher
 	{
 		/** List of functions to dispatch for each frame*/

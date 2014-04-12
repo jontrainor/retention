@@ -5,6 +5,9 @@ package game
 	import starling.events.Touch;
 	import starling.events.TouchPhase;
 	
+	/*========================================================================================
+	g_state handles g_main state changes in from events
+	========================================================================================*/
 	public class g_state
 	{	
 		/*===============
@@ -55,8 +58,6 @@ package game
 		
 		static public function get instance():g_state { return m_instance = m_instance ? m_instance : new g_state( new privateclass() ); }
 	}
-	
-	
 }
 
 class privateclass {}

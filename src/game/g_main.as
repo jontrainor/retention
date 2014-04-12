@@ -69,6 +69,7 @@ package game
 			m_player.Draw();
 		}
 		
+		
 		private function AddTouch():void { stage.addEventListener( TouchEvent.TOUCH, OnTouch ); }
 		private function RemoveTouch():void { stage.removeEventListener( TouchEvent.TOUCH, OnTouch ); }
 		

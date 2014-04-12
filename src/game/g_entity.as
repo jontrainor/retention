@@ -2,6 +2,9 @@ package game
 {
 	import starling.display.DisplayObjectContainer;
 	
+	/*========================================================================================
+	Entity Implementation from abstract entity
+	========================================================================================*/
 	public class g_entity extends a_entity
 	{
 		public function g_entity(

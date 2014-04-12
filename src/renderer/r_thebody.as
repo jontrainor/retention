@@ -35,19 +35,19 @@ package renderer
 		protected function onAdded( e:Event ):void {
 			removeEventListener( Event.ADDED_TO_STAGE, onAdded );
 			
-			m_backgroundLayer 	= new r_layer( assets.getTexture( "background" ), 0.5, stage );
-			m_midgroundLayer 	= new r_layer( assets.getTexture( "midground" ), 0.75, stage );
-			m_foregroundLayer 	= new r_layer( assets.getTexture( "foreground" ), 1, stage );
+			m_backgroundLayer 	= new r_layer( assets.getTexture( "background" ), 0.5, globals.background );
+			m_midgroundLayer 	= new r_layer( assets.getTexture( "midground" ), 0.75, globals.background );
+			//m_foregroundLayer 	= new r_layer( assets.getTexture( "foreground" ), 1, stage );
 			
 			drawBackground();
 		}
 		
 		protected function drawBackground():void {
-			//addParticles();
+			AddParticles();
 			
 			m_backgroundLayer.Draw();
 			m_midgroundLayer.Draw();
-			m_foregroundLayer.Draw();
+			//m_foregroundLayer.Draw();
 			
 			g_dispatcher.instance.AddToDispatch( OnTouch, null, "touch", TouchPhase.BEGAN );
 			g_dispatcher.instance.AddToDispatch( Update );
@@ -61,9 +61,11 @@ package renderer
 		protected function Update():void {
 			m_camera.x = globals.player.x;
 			m_camera.y = globals.player.y;
+			m_particleSystem.emitterX = globals.player.x + (globals.player.asset.width/2 * Math.cos( globals.player.rotation ) );
+			m_particleSystem.emitterY = globals.player.y + (globals.player.asset.height/2 * Math.sin( globals.player.rotation ) );
 		}
 		
-		/** Bubble effect, update emitterX and emitterY to player position.
+		/** Particle effect, update emitterX and emitterY to player position.
 		 * 	The particle.pex file can be update to change values as well, (pex is an xml)
 		 */
 		protected function AddParticles():void {
@@ -81,14 +83,14 @@ package renderer
 		override public function set x(value:Number):void {
 			m_midgroundLayer.x 	= value;
 			m_backgroundLayer.x = value;
-			m_foregroundLayer.x = value;
+			//m_foregroundLayer.x = value;
 		}
 		
 		/** Set the world y coordinate*/
 		override public function set y(value:Number):void {
 			m_midgroundLayer.y 	= value;
 			m_backgroundLayer.y = value;
-			m_foregroundLayer.y = value;
+			//m_foregroundLayer.y = value;
 		}
 	}
 }

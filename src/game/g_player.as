@@ -6,6 +6,9 @@ package game
 	import starling.events.Touch;
 	import starling.events.TouchPhase;
 	
+	/*========================================================================================
+	g_player is the super for g_bodyPlayer and g_puzzlePlayer
+	========================================================================================*/
 	public class g_player extends g_entity
 	{	
 		public function g_player(
