@@ -7,6 +7,9 @@ package game.puzzle
 	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 
+	/*========================================================================================
+	OEL file loader for puzzle levels
+	========================================================================================*/
 	public class z_loader extends URLLoader
 	{
 		private var m_levelPath			:String;
@@ -72,7 +75,7 @@ package game.puzzle
 			}
 			if ( m_loadState != globals.LOADING ) { 
 				m_callback = callback;
-				LoadAsset( m_levelPath+name+".xml" );
+				LoadAsset( m_levelPath+name+".xml" ); //change to oel when ready to use ogmo
 			} 
 			else if ( m_loadQue.indexOf( name ) == -1 ) {
 				m_loadQue.push( { name:name, callback:callback } );
