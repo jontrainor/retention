@@ -9,9 +9,9 @@ package game.puzzle
 	import starling.events.Touch;
 	import starling.events.TouchPhase;
 	
-	public class g_puzzlePlayer extends g_player
+	public class z_puzzlePlayer extends g_player
 	{
-		public function g_puzzlePlayer(parent:DisplayObjectContainer, asset:String, isSpriteSheet:Boolean=false, defaultFrames:int=120)
+		public function z_puzzlePlayer(parent:DisplayObjectContainer, asset:String, isSpriteSheet:Boolean=false, defaultFrames:int=120)
 		{
 			super(parent, asset, isSpriteSheet, defaultFrames);
 		}
