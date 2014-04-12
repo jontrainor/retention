@@ -6,22 +6,21 @@ package game
 	import starling.events.TouchPhase;
 	
 	public class g_state
-	{
-		/** singleton */
-		static private var m_instance:g_state;
-		
+	{	
 		/*===============
 		PRIVATE			
 		===============*/
-		private var m_state:String;
+		private var m_state		:String;
 		
 		/*===============
 		PUBLIC			
-			The below functions need to be set from g_main. It is faster to do a callback than pass the entire g_main object.
 		===============*/
-		
 		/** Start function to call for state handler */
-		public var Start:Function;
+		public var Start		:Function;
+		public var elapsedTime	:Number;
+		
+		/** singleton */
+		static private var m_instance:g_state;
 		
 		public function g_state( pvt:privateclass ) { m_state = globals.MENU; }
 		
@@ -42,7 +41,8 @@ package game
 		}
 		
 		/** Dispatch all the frame event functions */
-		public function updateHandler():void {
+		public function updateHandler( elapsedTime:Number ):void {
+			this.elapsedTime = elapsedTime;
 			g_dispatcher.instance.DispatchFrame();
 		}
 		

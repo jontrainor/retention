@@ -2,7 +2,7 @@ package game
 {
 	import starling.display.DisplayObjectContainer;
 	
-	public class g_drawable extends a_drawable
+	public class g_drawable extends a_entity
 	{
 		public function g_drawable(
 			parent				:DisplayObjectContainer,
@@ -18,7 +18,7 @@ package game
 			addChild( m_asset );
 		}
 		
-		override public function Update( elapsedTime:Number ):void {}
+		override public function Update():void {}
 		
 		override public function Draw():void { m_parent.addChild( this ); }
 		override public function Destroy():void { m_parent.removeChild( this ); }

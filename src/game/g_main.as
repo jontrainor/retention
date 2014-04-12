@@ -1,7 +1,8 @@
 package game
 {
-	import com.globals;
+	import flash.utils.getTimer;
 	
+	import com.globals;
 	import renderer.r_thebody;
 	
 	import starling.display.Sprite;
@@ -12,9 +13,14 @@ package game
 	
 	public class g_main extends Sprite
 	{
-		private var m_overworld:r_thebody
-		private var m_player:g_drawable;
-		private var m_appState:String;
+		private var m_overworld		:r_thebody
+		private var m_player		:g_drawable;
+		private var m_appState		:String;
+		
+		//used to update elapsed time between frames
+		private var m_deltaTime		:int;
+		private var m_currentTime	:int;
+		private var m_previousTime	:int;
 		
 		public function g_main() {
 			addEventListener( Event.ADDED_TO_STAGE, OnAdded );
@@ -49,7 +55,10 @@ package game
 		}
 		
 		private function Update( e:Event ):void {
-			g_state.instance.updateHandler();
+			m_currentTime = getTimer();
+			m_deltaTime = m_currentTime - m_previousTime;
+			g_state.instance.updateHandler( m_deltaTime/1000 );
+			m_previousTime = m_currentTime;
 		}
 		
 		public function Start():void {

@@ -24,6 +24,7 @@ package renderer
 			this.parallaxSpeed 	= parallaxSpeed;
 			
 			m_quadBatch.addImage( new Image( texture ) );
+			m_quadBatch.touchable = false;
 			
 			addChild( m_quadBatch );
 			parent.addChild( this );
@@ -43,11 +44,11 @@ package renderer
 		}
 		
 		override public function set x(value:Number):void {
-			super.x = value * parallaxSpeed;
+			m_quadBatch.x = value * parallaxSpeed;
 		}
 		
 		override public function set y(value:Number):void {
-			super.y = value * parallaxSpeed;
+			m_quadBatch.y = value * parallaxSpeed;
 		}
 	}
 }
