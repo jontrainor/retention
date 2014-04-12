@@ -35,9 +35,7 @@ package game
 		}
 		
 		override public function Update():void {
-			m_speed = m_speed > 0 ? m_speed - m_damping : m_speed;
-			x += m_velocity.x * m_speed * elapsedTime;
-			y += m_velocity.y * m_speed * elapsedTime;
+			Move();
 		}
 	}
 }

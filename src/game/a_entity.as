@@ -46,7 +46,7 @@ package game
 			m_assetHalfHeight = m_asset.height * 0.5;
 			
 			m_velocity	= new Point( 0, 0 );
-			m_damping	= 2;
+			m_damping	= 1;
 			m_speed		= 0;
 		}
 		
@@ -79,7 +79,14 @@ package game
 			Starling.juggler.add( tween );
 		}
 		
-		/** Impulse in a direction 
+		/** Translate, usuallyed call in Update() */
+		protected function Move():void {
+			m_speed = m_speed > 0 ? m_speed - m_damping : m_speed;
+			x += m_velocity.x * m_speed * elapsedTime;
+			y += m_velocity.y * m_speed * elapsedTime;
+		}
+		
+		/** Impulse in a direction
 		 * @param angle - angle in radians
 		 * @param rotate - set to false if you do not want the rotation property manipulated
 		 * @param rotationOffset - add rotation to the current angle (used with rotate property) in radians
@@ -89,7 +96,7 @@ package game
 			m_velocity.x = Math.cos( angle );
 			m_velocity.y = Math.sin( angle );
 			if ( rotate ) {
-				var tween:Tween = new Tween( this, 1 );
+				var tween:Tween = new Tween( this, 0.5 );
 				tween.animate( "rotation", angle + rotationOffset );
 				Starling.juggler.add( tween );
 			}
