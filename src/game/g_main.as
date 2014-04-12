@@ -32,7 +32,6 @@ package game
 			globals.stageWidth 		= stage.stageWidth;
 			globals.stageHeight 	= stage.stageHeight;
 			g_state.instance.Start 	= Start;
-			//added to the stage, ready to display items
 			
 			Init();
 		}
@@ -67,7 +66,6 @@ package game
 			globals.background.addChild( m_overworld );
 			
 			m_player = new g_bodyPlayer( globals.midground, "player" );
-			globals.player = m_player;
 			m_player.Draw();
 		}
 		

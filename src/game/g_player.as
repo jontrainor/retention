@@ -1,5 +1,7 @@
 package game
 {
+	import com.globals;
+	
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Touch;
 	import starling.events.TouchPhase;
@@ -19,6 +21,7 @@ package game
 		override protected function SetDefaults():void {
 			super.SetDefaults();
 			g_dispatcher.instance.AddToDispatch( Update );
+			globals.player = this;
 		}
 		
 		/** Touch event, applied with relative touch phases
