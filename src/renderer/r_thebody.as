@@ -81,15 +81,19 @@ package renderer
 		
 		/** Set the world x coordinate*/
 		override public function set x(value:Number):void {
-			m_midgroundLayer.x 	= value;
-			m_backgroundLayer.x = value;
+			m_midgroundLayer.x 		= value;
+			m_backgroundLayer.x 	= value;
+			globals.background.x 	= value;
+			globals.midground.x 	= value;
 			//m_foregroundLayer.x = value;
 		}
 		
 		/** Set the world y coordinate*/
 		override public function set y(value:Number):void {
-			m_midgroundLayer.y 	= value;
-			m_backgroundLayer.y = value;
+			m_midgroundLayer.y 		= value;
+			m_backgroundLayer.y 	= value;
+			globals.background.y 	= value;
+			globals.midground.y 	= value;
 			//m_foregroundLayer.y = value;
 		}
 	}
