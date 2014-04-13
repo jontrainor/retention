@@ -14,6 +14,7 @@ package renderer
 	import starling.events.TouchPhase;
 	import starling.extensions.PDParticleSystem;
 	import starling.extensions.ParticleSystem;
+	import starling.text.TextField;
 	
 	public class r_thebody extends Sprite
 	{
@@ -25,6 +26,9 @@ package renderer
 		
 		/** particle system is the bubble effect created at player's location */
 		private var m_particleSystem	:ParticleSystem;
+		
+		/** test bitmap text field to demonstrate use */
+		private var m_testTextField		:TextField;
 		
 		public function r_thebody() {
 			m_camera			= new r_camera(this);
@@ -44,6 +48,7 @@ package renderer
 		
 		protected function drawBackground():void {
 			AddParticles();
+			AddTextField();
 			
 			m_backgroundLayer.Draw();
 			m_midgroundLayer.Draw();
@@ -77,6 +82,15 @@ package renderer
 			
 			addChild( m_particleSystem );
 			Starling.juggler.add( m_particleSystem );
+		}
+		
+		protected function AddTextField():void {
+			// This technically only needs to get called once ever
+			// Doing the register in some global init file would probably be wise
+			// Note the name, having the exact same name as a system font breaks flash
+			assets.registerBitmapFont( "Consolass" );
+			m_testTextField		= new TextField(400, 100, "This is a test text field, remove me!", "Consolass", 20, 0xFFFFFF);
+			addChild(m_testTextField);
 		}
 		
 		/** Set the world x coordinate*/

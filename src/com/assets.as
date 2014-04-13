@@ -3,6 +3,8 @@ package com
 	import flash.display.Bitmap;
 	import flash.utils.Dictionary;
 	
+	import starling.text.BitmapFont;
+	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
@@ -38,6 +40,11 @@ package com
 		[Embed(source="../../assets/foreground.png")]
 		static private var foreground:Class;
 		
+		[Embed(source="../../assets/consolas.fnt", mimeType="application/octet-stream")]
+		static private var ConsolassFntCfg:Class;
+		[Embed(source="../../assets/consolas.png")]
+		static private var ConsolassFntTex:Class;
+		
 		//player atlas
 		/*[Embed(source="../../assets/playerAtlas.png")]
 		public static const playerAtlas:Class;
@@ -47,6 +54,7 @@ package com
 		private static var textures:Dictionary = new Dictionary();
 		private static var atlases:Dictionary = new Dictionary();
 		private static var configs:Dictionary = new Dictionary();
+		private static var bitmapFonts:Dictionary = new Dictionary();
 		
 		static public function getSS( name:String ):TextureAtlas {
 			if ( !atlases[ name ] ) {
@@ -72,6 +80,16 @@ package com
 				configs[ name ] = config;
 			}
 			return configs[ name ];
+		}
+		
+		static public function registerBitmapFont( name:String ):BitmapFont {
+			if ( !bitmapFonts[ name ] ) {
+				var fontConfig:XML 	= XML( new assets[ name+"FntCfg" ]() );
+				var fontTex:Texture	= getTexture( name+"FntTex" );
+				bitmapFonts[ name ]	= new BitmapFont( fontTex, fontConfig );
+				//TextField.registerBitmapFont( bitmapFonts[ name ] );
+			}
+			return bitmapFonts[ name ];
 		}
 	}
 }
