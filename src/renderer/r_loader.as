@@ -1,4 +1,4 @@
-package game.puzzle
+package renderer
 {
 	import com.globals;
 	
@@ -10,7 +10,7 @@ package game.puzzle
 	/*========================================================================================
 	OEL file loader for puzzle levels
 	========================================================================================*/
-	public class z_loader extends URLLoader
+	public class r_loader extends URLLoader
 	{
 		private var m_levelPath			:String;
 		private var m_loadState			:String;
@@ -19,13 +19,13 @@ package game.puzzle
 		private var m_loadedLevels		:Dictionary;
 		
 		/** singleton */
-		static private var sm_instance	:z_loader;
+		static private var sm_instance	:r_loader;
 		
-		public function z_loader( pvt:privateclass ) {
+		public function r_loader( pvt:privateclass ) {
 			m_loadedLevels 	= new Dictionary();
 			m_loadQue 		= new Vector.<Object>();
 			m_levelPath		= "../levels/";
-			m_loadState 		= globals.READY;
+			m_loadState 	= globals.READY;
 			this.addEventListener( Event.COMPLETE, OnComplete );
 		}
 		
@@ -34,7 +34,7 @@ package game.puzzle
 		LoadLevel
 		==============
 		*/
-		private function LoadAsset( path:String ):void {
+		private function LoadLevel( path:String ):void {
 			globals.echo( "loading level: " + path );
 			m_loadState = globals.LOADING;
 			load( new URLRequest( path ) );
@@ -75,7 +75,7 @@ package game.puzzle
 			}
 			if ( m_loadState != globals.LOADING ) { 
 				m_callback = callback;
-				LoadAsset( m_levelPath+name+".xml" ); //change to oel when ready to use ogmo
+				LoadLevel( m_levelPath+name+".xml" ); //change to oel when ready to use ogmo
 			} 
 			else if ( m_loadQue.indexOf( name ) == -1 ) {
 				m_loadQue.push( { name:name, callback:callback } );
@@ -89,7 +89,7 @@ package game.puzzle
 		public function set levelPath( path:String ):void { m_levelPath = path; }
 		public function get levelPath():String { return m_levelPath; }
 		
-		public static function get instance():z_loader { return sm_instance ? sm_instance : sm_instance = new z_loader( new privateclass() ); }
+		public static function get instance():r_loader { return sm_instance ? sm_instance : sm_instance = new r_loader( new privateclass() ); }
 	}
 }
 

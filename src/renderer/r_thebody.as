@@ -31,7 +31,7 @@ package renderer
 		private var m_testTextField		:TextField;
 		
 		public function r_thebody() {
-			m_camera			= new r_camera(this);
+			m_camera = new r_camera(this);
 			
 			addEventListener( Event.ADDED_TO_STAGE, onAdded );
 		}
@@ -43,7 +43,11 @@ package renderer
 			m_midgroundLayer 	= new r_layer( assets.getTexture( "midground" ), 0.75, globals.background );
 			//m_foregroundLayer 	= new r_layer( assets.getTexture( "foreground" ), 1, stage );
 			
-			drawBackground();
+			
+		}
+		
+		protected function LoadBodyLevel():void {
+			
 		}
 		
 		protected function drawBackground():void {
