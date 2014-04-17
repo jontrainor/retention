@@ -4,6 +4,7 @@ package game
 	
 	import com.globals;
 	import renderer.r_thebody;
+	import renderer.r_thepuzzle;
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -24,6 +25,8 @@ package game
 		
 		public function g_main() {
 			addEventListener( Event.ADDED_TO_STAGE, OnAdded );
+			var testlevel:r_thepuzzle = new r_thepuzzle();
+			testlevel.CreateGrid('test_level');
 		}
 		
 		private function OnAdded( e:Event ):void {
