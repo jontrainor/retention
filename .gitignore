@@ -18,6 +18,10 @@
 */.git/*
 *~
 ,*
+*.actionScriptProperties
+*.project
+*.flexProperties
+*.gitignore
 .#*
 .DS_Store
 .del-*
