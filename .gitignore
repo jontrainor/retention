@@ -18,6 +18,7 @@
 */.git/*
 *~
 ,*
+*bin-debug/*
 *.actionScriptProperties
 *.project
 *.flexProperties
@@ -33,3 +34,4 @@ RCS
 RCSLOG
 SCCS
 _$*
+bin-debug

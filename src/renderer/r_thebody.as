@@ -39,11 +39,9 @@ package renderer
 		protected function onAdded( e:Event ):void {
 			removeEventListener( Event.ADDED_TO_STAGE, onAdded );
 			
-			m_backgroundLayer 	= new r_layer( assets.getTexture( "background" ), 0.5, globals.background );
-			m_midgroundLayer 	= new r_layer( assets.getTexture( "midground" ), 0.75, globals.background );
+			m_backgroundLayer 	= new r_layer( assets.getTexture( "background" ), 0.5, this );
+			m_midgroundLayer 	= new r_layer( assets.getTexture( "midground" ), 0.75, this );
 			//m_foregroundLayer 	= new r_layer( assets.getTexture( "foreground" ), 1, stage );
-			
-			
 		}
 		
 		protected function LoadBodyLevel():void {
@@ -101,8 +99,8 @@ package renderer
 		override public function set x(value:Number):void {
 			m_midgroundLayer.x 		= value;
 			m_backgroundLayer.x 	= value;
-			globals.background.x 	= value;
-			globals.midground.x 	= value;
+			//globals.background.x 	= value;
+			//globals.midground.x 	= value;
 			//m_foregroundLayer.x = value;
 		}
 		
@@ -110,8 +108,8 @@ package renderer
 		override public function set y(value:Number):void {
 			m_midgroundLayer.y 		= value;
 			m_backgroundLayer.y 	= value;
-			globals.background.y 	= value;
-			globals.midground.y 	= value;
+			//globals.background.y 	= value;
+			//globals.midground.y 	= value;
 			//m_foregroundLayer.y = value;
 		}
 	}
