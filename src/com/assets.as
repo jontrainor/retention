@@ -4,7 +4,6 @@ package com
 	import flash.utils.Dictionary;
 	
 	import starling.text.BitmapFont;
-	import starling.text.TextField;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
@@ -13,37 +12,27 @@ package com
 	========================================================================================*/
 	public class assets
 	{
-		/*[Embed(source="../../assets/triggerf.ttf", 
-	    fontName = "trigger", 
-	    mimeType = "application/x-font",
-	    fontStyle="normal",  
-	    advancedAntiAliasing="true", 
-	    embedAsCFF="false")]
-		public static const bitFont:Class;*/
+		/*=================
+		OVERWORLD
+		=================*/
+		[Embed(source="../../assets/player.png")] 			static private var player			:Class;
+		[Embed(source="../../assets/particle.png")] 		static private var particle			:Class;
+		[Embed(source="../../assets/particle.pex",  
+			   mimeType="application/octet-stream")]		static private var particleConfig	:Class;
+		[Embed(source="../../assets/background.png")] 		static private var background		:Class;
+		[Embed(source="../../assets/midground.png")] 		static private var midground		:Class;
+		[Embed(source="../../assets/foreground.png")]		static private var foreground		:Class;
 		
-		[Embed(source="../../assets/player.png")]
-		static private var player:Class;
-		
-		[Embed(source="../../assets/particle.png")]
-		static private var particle:Class;
-		
-		[Embed(source="../../assets/particle.pex",  mimeType="application/octet-stream")]
-		static private var particleConfig:Class;
-		
-		//overworld background assets
-		[Embed(source="../../assets/background.png")]
-		static private var background:Class;
-		
-		[Embed(source="../../assets/midground.png")]
-		static private var midground:Class;
-		
-		[Embed(source="../../assets/foreground.png")]
-		static private var foreground:Class;
-		
-		[Embed(source="../../assets/consolas.fnt", mimeType="application/octet-stream")]
-		static private var ConsolassFntCfg:Class;
-		[Embed(source="../../assets/consolas.png")]
-		static private var ConsolassFntTex:Class;
+		/*=================
+		PUZZLE
+		=================*/
+		[Embed(source="../../assets/puzzle/floor.png")]		static private var floor			:Class;
+		[Embed(source="../../assets/puzzle/wall.png")]		static private var wall				:Class;
+		[Embed(source="../../assets/puzzle/node.png")]		static private var node				:Class;
+		[Embed(source="../../assets/puzzle/player.png")]	static private var puzzleplayer		:Class;
+		[Embed(source="../../assets/consolas.fnt", 
+			   mimeType="application/octet-stream")]		static private var ConsolassFntCfg	:Class;												
+		[Embed(source="../../assets/consolas.png")]			static private var ConsolassFntTex	:Class;
 		
 		//player atlas
 		/*[Embed(source="../../assets/playerAtlas.png")]

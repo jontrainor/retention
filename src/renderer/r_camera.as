@@ -2,6 +2,9 @@ package renderer
 {
 	import com.globals;
 
+	/*=============================================================================
+	camera class for the body and puzzle section
+	=============================================================================*/
 	public class r_camera
 	{
 		private var m_x			:Number;

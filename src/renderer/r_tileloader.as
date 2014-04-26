@@ -27,10 +27,7 @@ package renderer
 			m_assetPath = "../assets/";
 			m_loadState = "ready";
 			this.contentLoaderInfo.addEventListener( Event.COMPLETE, OnComplete );
-			this.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, OnError );
 		}
-		
-		private function OnError( e:Event ):void { trace( e ); }
 		
 		private function LoadAsset( path:String ):void {
 			m_loadState = "loading";
@@ -47,15 +44,17 @@ package renderer
 			m_loadState = "ready";
 			
 			++m_assetsLoaded;
-			m_callback( bitmap, m_assetsLoaded == m_loadAmount );
+			if ( m_callback ) {
+				m_callback( bitmap, m_assetsLoaded == m_loadAmount );
+			}
 			
 			m_loadQue.splice( 0, 1 );
 			if ( m_loadQue.length > 0 ) {
-				GetAsset( m_loadQue[ 0 ].name, m_loadQue[0].callback );
+				LoadNextAsset( m_loadQue[ 0 ].name, m_loadQue[0].callback );
 			}
 		}
 		
-		private function GetAsset( name:String, callback:Function=null ):* {
+		private function LoadNextAsset( name:String, callback:Function=null ):* {
 			if ( m_loadState != "loading" ) { 
 				m_callback = callback;
 				m_currentAssetName = name;
@@ -63,10 +62,17 @@ package renderer
 			}
 		}
 		
+		public function GetAsset( name:String ):Bitmap {
+			if ( m_loadedAssets[ name ] ) {
+				return m_loadedAssets[ name ];
+			}
+			return null;
+		}
+		
 		/** Add assets to be loaded */
 		public function AddAssetToLoad( name:String, callback:Function=null ):void { m_loadQue.push( { name:name, callback:callback } ); }
 		/** Load all the assets in the queue */
-		public function LoadAll():void { GetAsset( m_loadQue[ 0 ].name, m_loadQue[ 0 ].callback ); }
+		public function LoadAll():void { LoadNextAsset( m_loadQue[ 0 ].name, m_loadQue[ 0 ].callback ); }
 		
 		
 		/*=============================================================================

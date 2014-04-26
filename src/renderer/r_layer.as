@@ -1,13 +1,12 @@
 package renderer
 {	
-	import flash.geom.Point;
-	
 	import starling.display.DisplayObjectContainer;
-	import starling.display.Image;
-	import starling.display.QuadBatch;
 	import starling.display.Sprite;
 	import starling.textures.Texture;
 	
+	/*=============================================================================
+	Layers are children of the global layers usually
+	=============================================================================*/
 	public class r_layer extends Sprite
 	{
 		private var m_texture:Texture;

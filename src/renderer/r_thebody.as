@@ -20,6 +20,9 @@ package renderer
 	import starling.text.TextField;
 	import starling.textures.Texture;
 	
+	/*=============================================================================
+	body/overworld class
+	=============================================================================*/
 	public class r_thebody extends Sprite
 	{
 		/** layers are used for parallax, and the name is deceiving as they are all added to background */
@@ -52,7 +55,7 @@ package renderer
 			
 			m_backgroundLayer 	= new r_layer( 0.5, this );
 			m_midgroundLayer 	= new r_layer( 0.75, this );
-			m_foregroundLayer 	= new r_layer( 1, stage );
+			m_foregroundLayer 	= new r_layer( 1, this );
 			
 			m_layers.push( m_backgroundLayer );
 			m_layers.push( m_midgroundLayer );
@@ -118,6 +121,7 @@ package renderer
 			tile.transformationMatrix = matrix;
 		}
 		
+		/** One time call to have the overworld elemenst appear */
 		protected function DrawAll():void {
 			AddParticles();
 			AddTextField();
@@ -132,11 +136,6 @@ package renderer
 			
 			g_dispatcher.instance.AddToDispatch( OnTouch, null, "touch", TouchPhase.BEGAN );
 			g_dispatcher.instance.AddToDispatch( Update );
-		}
-		
-		protected function OnTouch( touch:Touch ):void {
-			var angle:Number = Math.atan2( touch.globalY - globals.stageHalfHeight, touch.globalX - globals.stageHalfWidth );
-			var velocity:Point = new Point( Math.cos( angle ), Math.sin( angle ) );
 		}
 		
 		protected function Update():void {
@@ -169,6 +168,15 @@ package renderer
 			//addChild(m_testTextField);
 		}
 		
+		/*=============================================================================
+		Event Handling
+		=============================================================================*/
+		/** Touch event handler */
+		protected function OnTouch( touch:Touch ):void {}
+		
+		/*=============================================================================
+		Accessors and Mutators
+		=============================================================================*/
 		/** Set the world x coordinate*/
 		override public function set x(value:Number):void {
 			m_midgroundLayer.x 		= value;

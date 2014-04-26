@@ -1,8 +1,11 @@
 package game
 {
+	import com.globals;
+	
 	import flash.utils.getTimer;
 	
-	import com.globals;
+	import game.puzzle.z_puzzleplayer;
+	
 	import renderer.r_thebody;
 	import renderer.r_thepuzzle;
 	
@@ -15,6 +18,7 @@ package game
 	public class g_main extends Sprite
 	{
 		private var m_overworld		:r_thebody
+		private var m_puzzleworld	:r_thepuzzle;
 		private var m_player		:g_player;
 		private var m_appState		:String;
 		
@@ -25,8 +29,6 @@ package game
 		
 		public function g_main() {
 			addEventListener( Event.ADDED_TO_STAGE, OnAdded );
-			var testlevel:r_thepuzzle = new r_thepuzzle();
-			//testlevel.CreateGrid('test_level');
 		}
 		
 		private function OnAdded( e:Event ):void {
@@ -66,16 +68,32 @@ package game
 		
 		public function Start():void {
 			//remove menu, add player, overworld etc
-			m_overworld = new r_thebody( AddElements );
+			//overworld
+			/*m_overworld = new r_thebody( AddElements );
 			globals.background.addChild( m_overworld );
-			m_overworld.visible = false;
+			m_overworld.visible = false;*/
+			
+			//puzzle
+			m_puzzleworld = new r_thepuzzle( AddElements );
+			m_puzzleworld.visible = true;
+			
+			globals.background.addChild( m_puzzleworld );
+			globals.FadeIn();
 		}
 		
 		private function AddElements():void {
 			globals.FadeIn();
-			m_overworld.visible = true;
+			//overworld
+			//m_overworld.visible = true;
+			//m_player = new g_bodyplayer( globals.midground, "player" );
+			//m_player.Draw();
 			
-			m_player = new g_bodyplayer( globals.midground, "player" );
+			//puzzle
+			m_player 		= new z_puzzleplayer( globals.midground, "puzzleplayer" );
+			//store reference to game grid
+			m_player.x 		= m_puzzleworld.playerStartPosition.x;
+			m_player.y 		= m_puzzleworld.playerStartPosition.y;
+			m_player["grid"]= m_puzzleworld.grid;
 			m_player.Draw();
 		}
 		

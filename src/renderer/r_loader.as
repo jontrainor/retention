@@ -40,7 +40,7 @@ package renderer
 		
 		private function OnComplete( e:Event ):void {
 			//did we load a puzzle level?
-			if ( e.target.data is XML ) {
+			if ( this.dataFormat == URLLoaderDataFormat.TEXT ) {
 				var xml:XML = new XML(e.target.data);
 				m_loadedLevels[m_currentLevelName] = xml;
 				m_callback( xml );
