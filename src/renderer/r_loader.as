@@ -4,7 +4,9 @@ package renderer
 	
 	import flash.events.Event;
 	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
+	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 
 	/*========================================================================================
@@ -17,6 +19,7 @@ package renderer
 		private var m_callback			:Function;
 		private var m_loadQue			:Vector.<Object>;
 		private var m_loadedLevels		:Dictionary;
+		private var m_currentLevelName	:String;
 		
 		/** singleton */
 		static private var sm_instance	:r_loader;
@@ -29,31 +32,28 @@ package renderer
 			this.addEventListener( Event.COMPLETE, OnComplete );
 		}
 		
-		/*
-		==============
-		LoadLevel
-		==============
-		*/
 		private function LoadLevel( path:String ):void {
 			globals.echo( "loading level: " + path );
 			m_loadState = globals.LOADING;
 			load( new URLRequest( path ) );
 		}
 		
-		/*
-		==============
-		OnComplete
-		
-		Level finished loading, store level file and do callback
-		Continue through loadQue while it contains assets to be loaded
-		==============
-		*/
 		private function OnComplete( e:Event ):void {
-			var xml:XML = new XML(e.target.data);
-			m_loadedLevels[xml.name] = xml;
+			//did we load a puzzle level?
+			if ( e.target.data is XML ) {
+				var xml:XML = new XML(e.target.data);
+				m_loadedLevels[m_currentLevelName] = xml;
+				m_callback( xml );
+			}
+			//nope, it's a body level
+			else {
+				var loader:URLLoader = e.target as URLLoader;
+				var data:ByteArray = loader.data as ByteArray;
+				var levelObject:Object = data.readObject();
+				m_loadedLevels[ m_currentLevelName ] = m_loadedLevels;
+				m_callback( levelObject );
+			}
 			m_loadState = globals.READY;
-			
-			m_callback( xml );
 			
 			if ( m_loadQue.length > 0 ) {
 				GetLevel( m_loadQue[ 0 ].name, m_loadQue[0].callback );
@@ -61,21 +61,20 @@ package renderer
 			}
 		}
 		
-		/*
-		==============
-		GetLevel
-		
-		Return level or load level if it is not stored in the loadedAssets container
-		If a level is currently loading when GetLevel is called, we add that level to the loadQue
-		==============
-		*/
-		public function GetLevel( name:String, callback:Function=null ):* {
+		/** Load a level file, either for the body or the puzzle section 
+		 * @param name - name of the level file
+		 * @param extension - set this to .rmf or .oel respectively (oel for ogmo)
+		 * @param callback - method to call once the level file has finished loading
+		 * */
+		public function GetLevel( name:String, extension:String=".rmf", callback:Function=null ):* {
 			if ( m_loadedLevels[name] ) { 
 				return m_loadedLevels[name];
 			}
 			if ( m_loadState != globals.LOADING ) { 
 				m_callback = callback;
-				LoadLevel( m_levelPath+name+".xml" ); //change to oel when ready to use ogmo
+				m_currentLevelName = name;
+				this.dataFormat = extension == ".rmf" ? URLLoaderDataFormat.BINARY : URLLoaderDataFormat.TEXT;
+				LoadLevel( m_levelPath+name+extension );
 			} 
 			else if ( m_loadQue.indexOf( name ) == -1 ) {
 				m_loadQue.push( { name:name, callback:callback } );

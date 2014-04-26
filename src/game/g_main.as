@@ -26,7 +26,7 @@ package game
 		public function g_main() {
 			addEventListener( Event.ADDED_TO_STAGE, OnAdded );
 			var testlevel:r_thepuzzle = new r_thepuzzle();
-			testlevel.CreateGrid('test_level');
+			//testlevel.CreateGrid('test_level');
 		}
 		
 		private function OnAdded( e:Event ):void {
@@ -66,11 +66,16 @@ package game
 		
 		public function Start():void {
 			//remove menu, add player, overworld etc
-			globals.FadeIn();
-			m_overworld = new r_thebody();
+			m_overworld = new r_thebody( AddElements );
 			globals.background.addChild( m_overworld );
+			m_overworld.visible = false;
+		}
+		
+		private function AddElements():void {
+			globals.FadeIn();
+			m_overworld.visible = true;
 			
-			m_player = new g_bodyPlayer( globals.midground, "player" );
+			m_player = new g_bodyplayer( globals.midground, "player" );
 			m_player.Draw();
 		}
 		
