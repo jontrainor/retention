@@ -31,6 +31,7 @@ package com
 		static public var foreground		:Sprite;
 		static public var overlay			:Sprite;
 		static public var player			:g_entity;
+		static public var tilesize			:int = 64;
 		
 		/*===============
 		CONSTANTS

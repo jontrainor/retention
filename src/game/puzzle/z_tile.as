@@ -18,8 +18,7 @@ package game.puzzle
 		}
 		
 		public function SetGridPosition( row:int, column:int ):void {
-			m_gridPosition.x = row;
-			m_gridPosition.y = column;
+			m_gridPosition = new Point(column,row);
 		}
 	}
 }

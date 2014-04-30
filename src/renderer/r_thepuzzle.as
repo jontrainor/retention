@@ -78,18 +78,19 @@ package renderer
 			var row:int;
 			var column:int;
 			var assetName:String;
-			var asset:Image;
 			grid = [];
 			for ( ; row < walls.length; ++row ) {
 				grid[row] = [];
 				walls[ row ] = walls[ row ].split("");
 				for ( column = 0; column < walls[ row ].length; ++column ) {
-					assetName = walls[ row ][ column ] == 1 ? "wall.png" : "floor.png";
-					asset = new Image( Texture.fromBitmap( r_tileloader.instance.GetAsset( assetName ) ) )
-					m_backgroundLayer.addChild( asset );
+					assetName = walls[ row ][ column ] == 1 ? "wall" : "floor";
+					var tile:z_tile = new z_tile( m_backgroundLayer, assetName );
+					m_backgroundLayer.addChild( tile );
 					
-					asset.x = column * asset.width;
-					asset.y = row * asset.height;
+					tile.SetGridPosition( row, column );
+					
+					tile.x = column * tile.width;
+					tile.y = row * tile.height;
 					grid [row ][ column ] = walls[ row ][column ];
 				}
 			}
@@ -97,12 +98,14 @@ package renderer
 			for ( row=0; row < moveableWalls.length; ++row ) {
 				moveableWalls[ row ] = moveableWalls[ row ].split("");
 				for ( column = 0; column < walls[ row ].length; ++column ) {
-					/*assetName = walls[ row ][ column ] == 1 ? "wall.png" : "floor.png";
-					asset = new Image( Texture.fromBitmap( r_tileloader.instance.GetAsset( assetName ) ) )
-					m_backgroundLayer.addChild( asset );
+					/*assetName = walls[ row ][ column ] == 1 ? "wall" : "floor";
+					var movable:z_tile = new z_tile( m_backgroundLayer, assetName );
+					m_backgroundLayer.addChild( movable );
 					
-					asset.x = column * asset.width;
-					asset.y = row * asset.height;*/
+					movable.SetGridPosition( row, column );
+					
+					movable.x = column * movable.width;
+					movable.y = row * movable.height;*/
 					grid [row ][ column ] = walls[ row ][column ];
 				}
 			}
