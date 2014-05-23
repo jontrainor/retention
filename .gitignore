@@ -37,3 +37,8 @@ _$*
 bin-debug
 .actionScriptProperties
 bin-debug
+assets
+bin-debug
+bin-release
+levels
+nape
