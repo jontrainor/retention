@@ -1,6 +1,5 @@
 package game
 {
-	import starling.events.KeyboardEvent;
 	import starling.events.Touch;
 
 	/*========================================================================================
@@ -14,39 +13,25 @@ package game
 		/** List of functions to dispatch for each touch event*/
 		private var m_dispatchTouchList:Vector.<Object>;
 		
-		/** List of functions to dispatch for each keyboard event*/
-		private var m_dispatchKeyboardList:Vector.<Object>;
-		
-		private const TOUCH:String = "touch";
-		private const KEYBOARD:String = "keyboard";
-		
 		/** Singleton */
 		static private var sm_instance:g_dispatcher;
 		
-		public function g_dispatcher( pvt:privateclass ) { 
-			m_dispatchFrameList 	= new Vector.<Object>; 
-			m_dispatchTouchList 	= new Vector.<Object>; 
-			m_dispatchKeyboardList 	= new Vector.<Object>; 
-		}
+		public function g_dispatcher( pvt:privateclass ) { m_dispatchFrameList = new Vector.<Object>; m_dispatchTouchList = new Vector.<Object>; }
 		
 		/** Add a function to be dispatched on the next dispatch call 
 		 * @param dispatchEventType - pass "frame" for ENTER_FRAME event, "touch" for a touch event 
-		 * @param phase - if you are passing dispatchEventType value "touch", then pass the phase you want it to triger with
-		 * otherwise pass the event phase you want it to run on
+		 * @param touchPhase - if you are passing dispatchEventType value "touch", then pass the phase you want it to triger with
 		 */
-		public function AddToDispatch( f:Function, args:Object=null, dispatchEventType:String="frame", phase:String=null ):void {
+		public function AddToDispatch( f:Function, args:Object=null, dispatchEventType:String="frame", touchPhase:String=null ):void {
 			dispatchEventType.toLowerCase();
 			var listName:String = dispatchEventType.charAt( 0 );
 			listName = listName.toUpperCase()+dispatchEventType.slice(1);
 			
 			var list:Vector.<Object> = this[ "m_dispatch"+listName+"List" ];
 			if ( m_dispatchFrameList.indexOf( f ) == -1 ) {
-				if ( phase && dispatchEventType == TOUCH ) {
-					m_dispatchTouchList.push( { func:f, args:args, phase:phase } );
-				}
-				else if ( dispatchEventType == KEYBOARD ) {
-					m_dispatchKeyboardList.push( { func:f, args:args, phase:phase } );
-				}
+				if ( touchPhase && dispatchEventType == "touch" ) {
+					m_dispatchTouchList.push( { func:f, args:args, phase:touchPhase } );
+				} 
 				else {
 					m_dispatchFrameList.push( { func:f, args:args } );
 				}
@@ -65,10 +50,10 @@ package game
 		}
 		
 		/** Dispatch all functions in the dispatch list */
-		public function DispatchFrame( elapsedTime:Number ):void {
+		public function DispatchFrame():void {
 			var i:int;
 			for ( ; i < m_dispatchFrameList.length; ++i ) {
-				m_dispatchFrameList[ i ].func.apply( this, [elapsedTime] );
+				m_dispatchFrameList[ i ].func.apply(this, m_dispatchFrameList[ i ].args );
 			}
 		}
 		
@@ -80,20 +65,6 @@ package game
 				obj = m_dispatchTouchList[ i ];
 				if ( obj.phase == touch.phase ) {
 					m_dispatchTouchList[ i ].func( touch );
-				}
-			}
-		}
-		
-		/** Dispatch all functions in the dispatch list 
-		 * @param type - type of keyboard event (ie. down, up)
-		 * */
-		public function DispatchKeyboard( e:KeyboardEvent ):void {
-			var i:int;
-			var obj:Object;
-			for ( ; i < m_dispatchKeyboardList.length; ++i ) {
-				obj = m_dispatchKeyboardList[i];
-				if ( obj.phase == e.type ) {
-					m_dispatchKeyboardList[ i ].func.apply( this, [ e ] );
 				}
 			}
 		}

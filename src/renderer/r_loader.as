@@ -39,13 +39,20 @@ package renderer
 		}
 		
 		private function OnComplete( e:Event ):void {
-			var loader:URLLoader = e.target as URLLoader;
-			var data:ByteArray = loader.data as ByteArray;
-			var levelObject:Object = data.readObject();
-			m_loadedLevels[ m_currentLevelName ] = m_loadedLevels;
-			m_callback( levelObject );
-			
-			//set the state ready to load
+			//did we load a puzzle level?
+			if ( this.dataFormat == URLLoaderDataFormat.TEXT ) {
+				var xml:XML = new XML(e.target.data);
+				m_loadedLevels[m_currentLevelName] = xml;
+				m_callback( xml );
+			}
+			//nope, it's a body level
+			else {
+				var loader:URLLoader = e.target as URLLoader;
+				var data:ByteArray = loader.data as ByteArray;
+				var levelObject:Object = data.readObject();
+				m_loadedLevels[ m_currentLevelName ] = m_loadedLevels;
+				m_callback( levelObject );
+			}
 			m_loadState = globals.READY;
 			
 			if ( m_loadQue.length > 0 ) {

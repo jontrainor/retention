@@ -5,7 +5,7 @@ package game
 	/*========================================================================================
 	Entity Implementation from abstract entity
 	========================================================================================*/
-	public class g_entity extends g_abstractentity
+	public class g_entity extends a_entity
 	{
 		public function g_entity(
 			parent				:DisplayObjectContainer,
@@ -19,17 +19,10 @@ package game
 		
 		protected function SetDefaults():void {
 			addChild( m_asset );
-			//SetAABB();
-			Init();
 		}
 		
-		protected function SetAABB():void {
-			
-		}
+		override public function Update():void {}
 		
-		//template overrides, which will probably be used eventually
-		override public function Init():void {}
-		override public function Update( elapsedTime:Number=NaN ):void {}
 		override public function Draw():void { m_parent.addChild( this ); }
 		override public function Destroy():void { m_parent.removeChild( this ); }
 		

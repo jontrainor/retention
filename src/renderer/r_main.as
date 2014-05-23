@@ -6,10 +6,10 @@ package renderer
 	========================================================================================*/
 	public class r_main
 	{
-		private var _overworld:r_world;
+		private var _overworld:r_thebody;
 		
 		public function r_main() {
-			_overworld = new r_world();
+			_overworld = new r_thebody();
 		}
 	}
 }
