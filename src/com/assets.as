@@ -15,42 +15,27 @@ package com
 		/*=================
 		OVERWORLD
 		=================*/
-		[Embed(source="../../assets/player.png")] 			static private var player			:Class;
-		[Embed(source="../../assets/particle.png")] 		static private var particle			:Class;
-		[Embed(source="../../assets/particle.pex",  
-			   mimeType="application/octet-stream")]		static private var particleConfig	:Class;
-		[Embed(source="../../assets/background.png")] 		static private var background		:Class;
-		[Embed(source="../../assets/midground.png")] 		static private var midground		:Class;
-		[Embed(source="../../assets/foreground.png")]		static private var foreground		:Class;
-		
-		/*=================
-		PUZZLE
-		=================*/
-		[Embed(source="../../assets/puzzle/floor.png")]		static private var floor			:Class;
-		[Embed(source="../../assets/puzzle/wall.png")]		static private var wall				:Class;
-		[Embed(source="../../assets/puzzle/node.png")]		static private var node				:Class;
-		[Embed(source="../../assets/puzzle/player.png")]	static private var puzzleplayer		:Class;
 		[Embed(source="../../assets/consolas.fnt", 
-			   mimeType="application/octet-stream")]		static private var ConsolassFntCfg	:Class;												
-		[Embed(source="../../assets/consolas.png")]			static private var ConsolassFntTex	:Class;
+			   mimeType="application/octet-stream")]					static private var ConsolassFntCfg	:Class;												
+		[Embed(source="../../assets/consolas.png")]						static private var ConsolassFntTex	:Class;
 		
 		//player atlas
-		/*[Embed(source="../../assets/playerAtlas.png")]
-		public static const playerAtlas:Class;
-		[Embed(source="../../assets/playerXML.xml", mimeType="application/octet-stream")]
-		public static const playerXML:Class;*/
+		[Embed(source="../../assets/spritesheet_player.png")] 
+		public static const spritesheet_player:Class;
+		[Embed(source="../../assets/data_player.xml", mimeType="application/octet-stream")]
+		public static const data_player:Class;
 		
 		private static var textures:Dictionary = new Dictionary();
 		private static var atlases:Dictionary = new Dictionary();
 		private static var configs:Dictionary = new Dictionary();
 		private static var bitmapFonts:Dictionary = new Dictionary();
 		
-		static public function getSS( name:String ):TextureAtlas {
+		static public function getSpriteSheet( name:String ):TextureAtlas {
 			if ( !atlases[ name ] ) {
-				var xml:XML 			= XML( new assets[ name+"XML" ]() );
-				var texture:Texture 	= getTexture( name+"Atlas" );
-				assets[ name+"Atlas" ] 	= new TextureAtlas( texture, xml );
-				atlases[ name ] 		= assets[ name+"Atlas" ];
+				var xml:XML 			= XML( new assets[ "data_"+name ]() );
+				var texture:Texture 	= getTexture( "spritesheet_"+name );
+				assets[ name ] 			= new TextureAtlas( texture, xml );
+				atlases[ name ] 		= assets[ name ];
 			}
 			return atlases[ name ];
 		}

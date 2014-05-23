@@ -4,21 +4,18 @@ package game
 	
 	import flash.utils.getTimer;
 	
-	import game.puzzle.z_puzzleplayer;
-	
-	import renderer.r_thebody;
-	import renderer.r_thepuzzle;
+	import renderer.r_world;
 	
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.KeyboardEvent;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	
 	public class g_main extends Sprite
 	{
-		private var m_overworld		:r_thebody
-		private var m_puzzleworld	:r_thepuzzle;
+		private var m_world			:r_world
 		private var m_player		:g_player;
 		private var m_appState		:String;
 		
@@ -45,16 +42,25 @@ package game
 		private function Init():void {
 			m_appState = globals.MENU;
 			globals.CreateLayers( stage );
-			AddTouch();
-			AddUpdate();
+			AddListeners();
 			//add menu, etc
+		}
+		
+		/** Start is called after we are finished with the menu */
+		public function Start():void {
+			//remove menu, add player, overworld etc
+			m_world = new r_world( AddElements );
+			globals.background.addChild( m_world );
+			//m_world.visible = false;
+			
+			//globals.FadeIn();
 		}
 		
 		private function OnTouch( e:TouchEvent ):void {
 			var touch:Touch = e.getTouch( stage );
 			if ( touch ) {
 				if ( touch.phase == TouchPhase.BEGAN ) {
-					g_state.instance.stateHandler( touch );
+					g_state.instance.StateHandler( touch );
 				}
 			}
 		}
@@ -62,45 +68,35 @@ package game
 		private function Update( e:Event ):void {
 			m_currentTime = getTimer();
 			m_deltaTime = m_currentTime - m_previousTime;
-			g_state.instance.updateHandler( m_deltaTime/1000 );
+			
+			g_state.instance.UpdateHandler( m_deltaTime );
 			m_previousTime = m_currentTime;
 		}
 		
-		public function Start():void {
-			//remove menu, add player, overworld etc
-			//overworld
-			/*m_overworld = new r_thebody( AddElements );
-			globals.background.addChild( m_overworld );
-			m_overworld.visible = false;*/
-			
-			//puzzle
-			m_puzzleworld = new r_thepuzzle( AddElements );
-			m_puzzleworld.visible = true;
-			
-			globals.background.addChild( m_puzzleworld );
-			globals.FadeIn();
+		private function OnKeyEvent( e:KeyboardEvent ):void {
+			g_state.instance.StateHandler( e );
 		}
 		
 		private function AddElements():void {
-			globals.FadeIn();
-			//overworld
-			//m_overworld.visible = true;
-			//m_player = new g_bodyplayer( globals.midground, "player" );
-			//m_player.Draw();
-			
-			//puzzle
-			m_player 		= new z_puzzleplayer( globals.midground, "puzzleplayer" );
-			//store reference to game grid
-			m_player.x 		= m_puzzleworld.playerStartPosition.x;
-			m_player.y 		= m_puzzleworld.playerStartPosition.y;
-			m_player["grid"]= m_puzzleworld.grid;
+			//globals.FadeIn();
+			m_player = new g_player( globals.midground, "player", true, 4 );
 			m_player.Draw();
+			m_player.x = stage.stageWidth/2;
+			m_player.y = stage.stageHeight/2;
 		}
 		
-		private function AddTouch():void { stage.addEventListener( TouchEvent.TOUCH, OnTouch ); }
-		private function RemoveTouch():void { stage.removeEventListener( TouchEvent.TOUCH, OnTouch ); }
+		private function AddListeners():void {
+			stage.addEventListener( TouchEvent.TOUCH, OnTouch );
+			stage.addEventListener( KeyboardEvent.KEY_DOWN, OnKeyEvent );
+			stage.addEventListener( KeyboardEvent.KEY_UP, OnKeyEvent );
+			addEventListener( Event.ENTER_FRAME, Update );
+		}
 		
-		private function AddUpdate():void { addEventListener( Event.ENTER_FRAME, Update ); }
-		private function RemoveUpdate():void { removeEventListener( Event.ENTER_FRAME, Update ); }
+		private function RemoveListeners():void {
+			stage.removeEventListener( TouchEvent.TOUCH, OnTouch );
+			stage.removeEventListener( KeyboardEvent.KEY_DOWN, OnKeyEvent );
+			stage.removeEventListener( KeyboardEvent.KEY_UP, OnKeyEvent );
+			removeEventListener( Event.ENTER_FRAME, Update );
+		}
 	}
 }

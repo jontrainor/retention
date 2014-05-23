@@ -82,6 +82,7 @@ package renderer
 		public function set assetPath( path:String ):void { m_assetPath = path; }
 		public function get assetPath():String { return m_assetPath; }
 		public function get remaining():int { return m_loadQue.length; }
+		public function get loadAmount():int { return m_loadAmount; }
 		public function set loadAmount(val:int):void { m_loadAmount = val; }
 		
 		//singleton instance

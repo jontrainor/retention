@@ -4,6 +4,9 @@ package com
 	
 	import game.g_entity;
 	
+	import nape.callbacks.CbType;
+	import nape.space.Space;
+	
 	import starling.animation.Tween;
 	import starling.core.Starling;
 	import starling.display.Image;
@@ -32,6 +35,8 @@ package com
 		static public var overlay			:Sprite;
 		static public var player			:g_entity;
 		static public var tilesize			:int = 64;
+		static public var space				:Space;
+		static public var gravity			:int = 1200;
 		
 		/*===============
 		CONSTANTS
@@ -43,6 +48,13 @@ package com
 		static public const GAME_OVERWORLD	:String = "overworld";
 		static public const READY			:String = "ready";
 		static public const LOADING			:String = "loading";
+		
+		//collision cb types for bodies
+		static public const CB_PLAYER		:CbType = new CbType();
+		static public const CB_ENTITY		:CbType = new CbType();
+		static public const CB_WALL			:CbType	= new CbType();
+		static public const CB_FLOOR		:CbType = new CbType();		
+		static public const CB_COLLISION	:CbType = new CbType();		
 		
 		public function globals():void {
 			if ( m_instance ) { echo( "!!Warning!! --> There can only be one globals instance. It's created from Retention." ); return; }
@@ -73,8 +85,8 @@ package com
 			var t:Texture = Texture.fromBitmapData( bmd );
 			m_fade = new Image( t );
 			//turn off visability and prep for fading
-			//m_fade.visible = false;
-			//m_fade.alpha = 0;
+			m_fade.visible = false;
+			m_fade.alpha = 0;
 			overlay.addChild( m_fade );
 		}
 		
