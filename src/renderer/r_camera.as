@@ -1,6 +1,8 @@
 package renderer
 {
 	import com.globals;
+	
+	import starling.display.Sprite;
 
 	/*=============================================================================
 	camera class for the body and puzzle section
@@ -12,12 +14,12 @@ package renderer
 		private var m_width		:Number;
 		private var m_height	:Number;
 		
-		private var m_world		:r_thebody
+		private var m_world		:Sprite;
 		
 		/** singleton */
 		static private var sm_instance:r_camera;
 		
-		public function r_camera( world:r_thebody ) {
+		public function r_camera( world:Sprite ) {
 			if ( sm_instance ) { throw new Error( "Camera instance already created, use instance property" ); }
 			sm_instance = this;
 			m_width 	= globals.stageWidth;

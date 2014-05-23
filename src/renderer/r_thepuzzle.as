@@ -1,8 +1,11 @@
 package renderer
 {
+	import com.globals;
+	
 	import flash.display.Bitmap;
 	import flash.geom.Point;
 	
+	import game.g_dispatcher;
 	import game.puzzle.z_tile;
 	
 	import starling.display.Image;
@@ -21,6 +24,8 @@ package renderer
 		protected var m_backgroundLayer		:r_layer;
 		protected var m_midgroundLayer		:r_layer;
 		protected var m_foregroundLayer		:r_layer;
+		
+		protected var m_camera				:r_camera;
 		
 		/** this gets called after the level is finished loading and setup */
 		private var m_onLoadedCallback		:Function;
@@ -45,6 +50,7 @@ package renderer
 			m_layers.push( m_foregroundLayer );
 			
 			m_currentLevel = "puzzle_1"; //change this accordingly for shared object
+			m_camera = new r_camera( this );
 			LoadLevel( m_currentLevel );
 		}
 		
@@ -117,9 +123,16 @@ package renderer
 		}
 		
 		protected function DrawAll():void {
+			//g_dispatcher.instance.AddToDispatch( Update );
+			
 			m_backgroundLayer.Draw();
 			m_midgroundLayer.Draw();
 			m_foregroundLayer.Draw();
+		}
+		
+		protected function Update():void {
+
+
 		}
 		
 		public function Destroy():void {
