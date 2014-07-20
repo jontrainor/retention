@@ -4,7 +4,7 @@ package game
 	
 	import flash.utils.getTimer;
 	
-	import game.puzzle.z_puzzleplayer;
+	import game.puzzle.z_player;
 	
 	import renderer.r_thebody;
 	import renderer.r_thepuzzle;
@@ -89,7 +89,7 @@ package game
 			//m_player.Draw();
 			
 			//puzzle
-			m_player 		= new z_puzzleplayer( globals.midground, "puzzleplayer" );
+			m_player 		= new z_player( globals.midground, "puzzleplayer" );
 			//store reference to game grid
 			m_player.x 		= m_puzzleworld.playerStartPosition.x;
 			m_player.y 		= m_puzzleworld.playerStartPosition.y;

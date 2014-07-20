@@ -9,7 +9,7 @@ package game.puzzle
 	import starling.events.Touch;
 	import starling.events.TouchPhase;
 	
-	public class z_puzzleplayer extends g_player
+	public class z_player extends g_player
 	{
 		protected var m_grid:Array;
 		
@@ -19,7 +19,7 @@ package game.puzzle
 		
 		private const SPEED:int = 200;
 		
-		public function z_puzzleplayer(parent:DisplayObjectContainer, asset:String, isSpriteSheet:Boolean=false, defaultFrames:int=120){
+		public function z_player(parent:DisplayObjectContainer, asset:String, isSpriteSheet:Boolean=false, defaultFrames:int=120){
 			super(parent, asset, isSpriteSheet, defaultFrames);
 			gridPosition = new Point( 0, 0 );
 		}
